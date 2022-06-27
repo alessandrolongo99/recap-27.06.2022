@@ -1,0 +1,8 @@
+@font-face {
+    font-family: BoardTable;
+    src: url("Skyfont.otf") format("opentype");
+  }
+  
+  #tempo {
+    font-family: BoardTable;
+  }
