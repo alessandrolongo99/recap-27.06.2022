@@ -1,6 +1,6 @@
 const start = document.getElementById('start');
-const pausa = document.getElementById('pause');
-const azzera = document.getElementById('reset');
+const pause = document.getElementById('pause');
+const reset = document.getElementById('reset');
 
 let cs = 0;
 let s = 0;
@@ -8,7 +8,6 @@ let m = 0;
 let h = 0;
 
 let clock = 0;
-
 let running = false;
 
 start.addEventListener('click', function () {
@@ -33,11 +32,10 @@ start.addEventListener('click', function () {
             document.getElementById('h').innerHTML = addZero(h);
         }, 10);
         running = true;
-        console.log('cliccato');
     }
 });
 
-pausa.addEventListener('click', function () {
+pause.addEventListener('click', function () {
     clearInterval(clock);
     running = false;
 });
