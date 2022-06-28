@@ -1,57 +1,65 @@
-const start = document.getElementById('btn-start');
+const start = document.getElementById('start');
+const pausa = document.getElementById('pause');
+const azzera = document.getElementById('reset');
 
-const pausa = document.getElementById('btn-pausa');
+let cs = 0;
+let s = 0;
+let m = 0;
+let h = 0;
 
-const azzera = document.getElementById('btn-azzera');
-let clock;
-let output = document.getElementById('output');
+let clock = 0;
 
-let ore = document.getElementById('ore');
-let minuti = document.getElementById('minuti');
-let secondi =  document.getElementById('secondi');
-let centesimi = document.getElementById('centesimi');
+let running = false;
 
-start.addEventListener('click', function(){
-    clock = setInterval (function(){
-    output.innerHTML = (parseFloat(output.innerHTML)) + 1
-    }, 10);
+start.addEventListener('click', function () {
+    if (!running) {
+        clock = setInterval(() => {
+            cs++;
+            if (cs >= 100) {
+                cs = 0;
+                s++;
+            }
+            if (s >= 60) {
+                s = 0;
+                m++;
+            }
+            if (m >= 60) {
+                m = 0;
+                h++;
+            }
+            document.getElementById('cs').innerHTML = addZero(cs);
+            document.getElementById('s').innerHTML = addZero(s);
+            document.getElementById('m').innerHTML = addZero(m);
+            document.getElementById('h').innerHTML = addZero(h);
+        }, 10);
+        running = true;
+        console.log('cliccato');
+    }
 });
 
-pausa.addEventListener('click', function(){
+pausa.addEventListener('click', function () {
     clearInterval(clock);
-})
+    running = false;
+});
 
-azzera.addEventListener('click', function(){
+reset.addEventListener('click', function () {
     clearInterval(clock);
-    output.innerHTML = 0;
+    running = false;
+    clock = 0;
+    cs = 0;
+    document.getElementById('cs').innerHTML = addZero(cs);
+    s = 0;
+    document.getElementById('s').innerHTML = addZero(s);
+    m = 0;
+    document.getElementById('m').innerHTML = addZero(m);
+    h = 0;
+    document.getElementById('h').innerHTML = addZero(h);
 });
 
-setInterval(function(){
-    centesimi++;
-    if(centesimi > 99){
-        centesimi = 0;
-        secondi++;
-        document.getElementById('centesimi').innerHTML = addZero(centesimi);
-
-    }
-    if(secondi > 59){
-        secondi = 0;
-        minuti++;
-        document.getElementById('secondi').innerHTML = addZero(secondi);
-    }
-    if(minuti > 59){
-        minuti = 0;
-        ore++;
-        document.getElementById('minuti').innerHTML = addZero(minuti);
-    }
-});
-
-function addZero(num){
-    if(num < 10){
+function addZero(num) {
+    if (num < 10) {
         return '0' + num;
+    } else {
+        return num;
     }
-    return num;
 }
-
-
-// da finire
